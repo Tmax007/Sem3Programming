@@ -13,6 +13,27 @@ public class PowerUps : MonoBehaviour
     /// <returns>An array of the spawned power ups, in counter clockwise order.</returns>
     public GameObject[] SpawnPowerUps()
     {
-        return null;
+        GameObject[] powerUps = new GameObject[PowerUpCount];
+
+        // Angle increment for even spacing
+        float angleInc = 360 / PowerUpCount;
+
+        for (int i = 0; i < PowerUpCount; i++)
+        {
+            // Angle for power up
+            float angle = i * angleInc;
+
+            // Angle to radian
+            float rad = angle * Mathf.Deg2Rad;
+
+            // Position of power up in circle
+            float x = transform.position.x + PowerUpRadius * Mathf.Cos(rad);
+            float y = transform.position.y + PowerUpRadius* Mathf.Sin(rad);
+
+            // Powerup at calculated position
+            powerUps[i] = Instantiate(PowerUpPrefab, new Vector3(x, y), Quaternion.identity);
+        }
+
+        return powerUps;
     }
 }
