@@ -18,7 +18,34 @@ public class BombSpiral : MonoBehaviour
     /// <returns>An array of the spawned bombs</returns>
     public GameObject[] SpawnBombSpiral()
     {
-        return null;
+        GameObject[] daBomb = new GameObject[BombCount];
+
+        // Angle increment for even spacing
+        float angleInc = SpiralAngleInDegrees;
+
+        // Radius spiral distance
+        float radSpiral = (EndRadius - StartRadius) / BombCount;
+
+        for (int i = 0; i < BombCount; i++)
+        {
+            // Angle for da bomb
+            float angle = i * angleInc;
+
+            // Angle to radian
+            float rad = angle * Mathf.Deg2Rad;
+
+            // Current radius
+            float currentRad = StartRadius + i * radSpiral;
+
+            // Position of bomb in spiral
+            float x = transform.position.x + currentRad * Mathf.Cos(rad);
+            float y = transform.position.y + currentRad * Mathf.Sin(rad);  
+
+            // Da bomb at calculated position
+            daBomb[i] = Instantiate(BombPrefab, new Vector3(x, y), Quaternion.identity);
+        }
+
+        return daBomb;
     }
 
 }
